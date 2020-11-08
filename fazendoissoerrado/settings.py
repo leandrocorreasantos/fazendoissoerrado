@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'imagekit',
+    'taggit',
+    'django_summernote',
+    'blog.apps.BlogConfig'
 ]
 
 MIDDLEWARE = [
@@ -127,6 +131,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+# summernote config
+SUMMERNOTE_CONFIG = {
+    'disable_attachment': True,
+    'summernote': {
+        'width': '90%',
+        'height': '800',
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
