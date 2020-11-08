@@ -13,10 +13,17 @@ from tinymce.models import HTMLField
 
 class Category(models.Model):
     name = models.CharField('Nome', max_length=255)
-    slug = models.CharField('Slug', max_length=255, null=True)
+    slug = models.CharField('Slug', max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return "/category/{}".format(self.slug)
+
+    def save(self):
+        self.slug = slugify(self.name)
+        super(Category, self).save()
 
 
 class Post(models.Model):
@@ -28,7 +35,7 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT
     )
-    slug = models.CharField(max_length=255, null=True)
+    slug = models.CharField(max_length=255, null=True, blank=True)
     content = models.TextField('Conteúdo', blank=True, null=True)
     meta_description = models.TextField('meta-escription')
     cover = models.ImageField(
@@ -44,7 +51,7 @@ class Post(models.Model):
     tags = TaggableManager()
 
     def __str__(self):
-        return self.slug
+        return self.title
 
     def get_absolute_url(self):
         return "/{}-{}".format(self.category, self.slug)
