@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    web:
+        image: python:3.6
+        container_name: blog
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/usr/src/app
+        working_dir: /usr/src/app
+        links:
+            - db
+            - cache
+        depends_on:
+            - db
+        command: tail -f /dev/null
+        networks:
+            - app-network
+    db:
+        image: postgres
+        container_name: blog_db
+        networks:
+            - app-network
+        ports:
+            - "5433:5432"
+        environment:
+            POSTGRES_DB: blog
+            POSTGRES_USER: blog_user
+            POSTGRES_PASSWORD: 123456
+    cache:
+        image: redis
+        container_name: blog_cache
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
