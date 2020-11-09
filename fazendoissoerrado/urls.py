@@ -19,9 +19,11 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sumernote/', include('django_summernote.urls')),
+    path('', include('blog.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(
