@@ -19,7 +19,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return "/category/{}".format(self.slug)
+        return "/categoria/{}".format(self.slug)
 
     def save(self):
         self.slug = slugify(self.name)
@@ -54,7 +54,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/{}-{}".format(self.category, self.slug)
+        return "/post/{}-{}".format(self.category, self.slug)
 
     def publish(self):
         self.published_date = timezone.now()
