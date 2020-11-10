@@ -37,7 +37,7 @@ class Post(models.Model):
     )
     slug = models.CharField(max_length=255, null=True, blank=True)
     content = models.TextField('Conteúdo', blank=True, null=True)
-    meta_description = models.TextField('meta-escription')
+    meta_description = models.TextField('meta-description')
     cover = models.ImageField(
         'Capa', upload_to='post/cover/', blank=True, null=True
     )
@@ -54,7 +54,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/post/{}-{}".format(self.category, self.slug)
+        return "/post/{}/{}-{}".format(self.category.slug, self.slug, self.pk)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -67,12 +67,8 @@ class Post(models.Model):
         self.save()
 
     def save(self):
+        self.slug = slugify(self.title)
         if self.pk:
-            slug_field = '{}-{}-{}'.format(
-                self.category, self.title, self.pk
-            )
-            self.slug = slugify(slug_field)
-
             this = Post.objects.get(pk=self.pk)
             try:
                 if this.cover != self.cover:

@@ -6,6 +6,7 @@ from .models import Category, Post
 
 
 class PostAdmin(SummernoteModelAdmin):
+    exclude = ('slug',)
     summernote_fields = ('content',)
 
 

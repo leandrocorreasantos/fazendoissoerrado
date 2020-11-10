@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
+ENVIRONMENT = env('ENVIRONMENT')
 
 ALLOWED_HOSTS = [
         'localhost',
@@ -145,6 +145,9 @@ SUMMERNOTE_CONFIG = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if ENVIRONMENT == 'development':
+    STATIC_ROOT = env('STATIC_ROOT')
+    MEDIA_ROOT = env('MEDIA_ROOT')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
