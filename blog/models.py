@@ -7,7 +7,6 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.utils import timezone
 from taggit.managers import TaggableManager
-from tinymce.models import HTMLField
 # Create your models here.
 
 
@@ -65,6 +64,18 @@ class Post(models.Model):
         self.published_date = None
         self.published = False
         self.save()
+
+    @classmethod
+    def find(cls):
+        search = []
+        try:
+            search = cls.objects.filter(
+                published_date__lte=timezone.now()
+            ).filter(published=True).order_by('-published_date').all()
+        except Exception:
+            search = None
+
+        return search
 
     def save(self):
         self.slug = slugify(self.title)

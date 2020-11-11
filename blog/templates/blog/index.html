@@ -1,338 +1,92 @@
 {% extends "blog/default.html" %}
 {% load static %}
+{% load imagekit %}
 {% block site_title %}Inicio{% endblock %}
 {% block content %}
 <div class="row">
-   <div class="col-sm-12 padding_all">
+	<div class="col-sm-12 padding_all">
 	<div class="col-sm-8">
-	 <div class="center_1">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+	<div class="center_1">
+     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-      </ol>
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <div class="item">
-			<img src="{% static 'img/1.jpg' %}" alt="...">
-          <div class="carousel-caption">
-            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</br> Integer nec odionec odio. cursus ante dapibus</h2>
-          </div>
-        </div>
-        <div class="item active">
-			<img src="{% static 'img/2.jpg' %}" alt="...">
-          <div class="carousel-caption">
-            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</br>  Integer nec odionec odio. cursus ante dapibus</h2>
-          </div>
-        </div>
-        <div class="item">
-			<img src="{% static 'img/3.png' %}" alt="...">
-          <div class="carousel-caption">
-            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</br>  Integer nec odionec odio. cursus ante dapibus</h2>
-          </div>
-        </div>
-      </div>
+     	<ol class="carousel-indicators">
+        	<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        	<li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+        	<li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+      	</ol>
+      	<!-- Wrapper for slides -->
+      	<div class="carousel-inner">
+			{% for high in highlights %}
+				<div class="item {% if forloop.counter == 1 %}active{% endif %}">
+					{% thumbnail '800x468' high.cover -- alt="..." %}
+	        		<div class="carousel-caption">
+			  			<h2>{{ high.title|truncatewords:16 }}</h2>
+          			</div>
+	    		</div>
+			{% endfor %}
+		</div>
+      	<!-- Controls -->
+      	<a class="left carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="prev">
+        	<span class="glyphicon glyphicon-chevron-left"></span>
+      	</a>
+	    <a class="right carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="next">
+        	<span class="glyphicon glyphicon-chevron-right"></span>
+      	</a>
+    	</div>
+	</div>
+	{% for post in posts %}
+	<div class="col-sm-12 padding_all">
+		<div class="center_4 clearfix">
+			<div class="col-sm-4">
+		   		<div class="center_2">
+					{% if post.cover %}
+						<a href="{{ post.get_absolute_url }}">{% thumbnail '260x170' post.cover -- width='100%' %}</a>
+					{% endif %}
+		   		</div>
+	  		</div>
+		  	<div class="col-sm-8">
+		  		<div class="center_3">
+					<h6><a href="{{ post.get_absolute_url }}">{{ post.author.first_name|upper }}</a>,
+						{{ post.published_date|date:"d \d\e F \d\e Y H:i" }}</h6>
+					<h3><a href="{{ post.get_absolute_url }}">{{ post.title|title }}</a></h3>
+					<p>{{ post.content|striptags|truncatewords:36 }}</p>
+	  				<ul>
+						{% for tag in post.tags.all %}
+							<li class="well_5"><a href="#">{{tag.name}}</a></li>
+						{% endfor %}
+						<!--<li>100 <i class="fa fa-eye"></i></li>-->
+						<!--<li><a href="#">1</a> <i class="fa fa-comment"></i></li>-->
+	  				</ul>
+	 			</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+	<div class="center_5 clearfix">
+	  	<ul>
+			{% if posts.has_previous %}
+				<li><a href="?page=1">&laquo</a></li>
+				<li><a href="?page={{ posts.previous_page_number }}">&lt;</a></li>
+			{% endif %}
 
-      <!-- Controls -->
-      <a class="left carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </a>
-      <a class="right carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-      </a>
-    </div>
-	 </div>
-	 <div class="col-sm-12 padding_all">
-	  <div class="center_4 clearfix">
-	   <div class="col-sm-4">
-	   <div class="center_2">
-	    <a href="#"><img src="img/5.jpg" width="100%"></a>
-	   </div>
-	  </div>
-	   <div class="col-sm-8">
-	  <div class="center_3">
-	  <h6><a href="#">TORQUENT PER</a>, JANUARY 11, 2016</h6>
-	  <h3><a href="#">Consectetur Adipiscing Elit. Integer Nec</a></h3>
-	  <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem</br> at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris</br> Vestibulum lacinia …</p>
-	  <ul>
-	      <li class="well_5"><a href="#">Nisi</a></li>
-		  <li class="well_5"><a href="#">Consectetur</a></li>
-		  <li>100 <i class="fa fa-eye"></i></li>
-		  <li><a href="#">1</a> <i class="fa fa-comment"></i></li>
-	  </ul>
-	 </div>
+			<li class="well_6">{{ posts.number }}</li>
+
+			{% if posts.has_next %}
+				<li><a href="?page={{ posts.next_page_number }}"> &gt; </a></li>
+				<li><a href="?page={{ posts.paginator.num_pages }}">&raquo;</a></li>
+			{% endif %}
+			<!--
+	    	<li class="well_6">1</li>
+		  	<li><a href="#">2</a></li>
+		  	<li><a href="#">3</a></li>
+		  	<li>...</li>
+		  	<li><a href="#">111</a></li>
+		  	<li><a href="#">Next ></a></li>
+			-->
+	  	</ul>
 	</div>
-	  </div>
-	 </div>
-	 <div class="col-sm-12 padding_all">
-	  <div class="center_4 clearfix">
-	   <div class="col-sm-4">
-	   <div class="center_2">
-	    <a href="#"><img src="img/6.jpg" width="100%"></a>
-	   </div>
-	  </div>
-	   <div class="col-sm-8">
-	  <div class="center_3">
-	  <h6><a href="#">DAPIBUS DIAM</a>, JANUARY 11, 2016</h6>
-	  <h3><a href="#">Consectetur Adipiscing Elit. Integer Nec</a></h3>
-	  <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem</br> at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris</br> Vestibulum lacinia …</p>
-	  <ul>
-	      <li class="well_5"><a href="#">Nisi</a></li>
-		  <li class="well_5"><a href="#">Consectetur</a></li>
-		  <li>100 <i class="fa fa-eye"></i></li>
-		  <li><a href="#">1</a> <i class="fa fa-comment"></i></li>
-	  </ul>
-	 </div>
-	</div>
-	  </div>
-	 </div>
-	 <div class="col-sm-12 padding_all">
-	  <div class="center_4 clearfix">
-	   <div class="col-sm-4">
-	   <div class="center_2">
-	    <a href="#"><img src="img/7.jpg" width="100%"></a>
-	   </div>
-	  </div>
-	   <div class="col-sm-8">
-	  <div class="center_3">
-	  <h6><a href="#">SEMPER PORTA</a>, JANUARY 11, 2016<</h6>
-	  <h3><a href="#">Consectetur Adipiscing Elit. Integer Nec</a></h3>
-	  <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem</br> at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris</br> Vestibulum lacinia …</p>
-	  <ul>
-	      <li class="well_5"><a href="#">Nisi</a></li>
-		  <li class="well_5"><a href="#">Consectetur</a></li>
-		  <li>100 <i class="fa fa-eye"></i></li>
-		  <li><a href="#">1</a> <i class="fa fa-comment"></i></li>
-	  </ul>
-	 </div>
-	</div>
-	  </div>
-	 </div>
-	 <div class="col-sm-12 padding_all">
-	  <div class="center_4 clearfix">
-	   <div class="col-sm-4">
-	   <div class="center_2">
-	    <a href="#"><img src="img/8.jpg" width="100%"></a>
-	   </div>
-	  </div>
-	   <div class="col-sm-8">
-	  <div class="center_3">
-	  <h6><a href="#">MAURIS MASSA</a>, JANUARY 11, 2016</h6>
-	  <h3><a href="#">Consectetur Adipiscing Elit. Integer Nec</a></h3>
-	  <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem</br> at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris</br> Vestibulum lacinia …</p>
-	  <ul>
-	      <li class="well_5"><a href="#">Nisi</a></li>
-		  <li class="well_5"><a href="#">Consectetur</a></li>
-		  <li>100 <i class="fa fa-eye"></i></li>
-		  <li><a href="#">1</a> <i class="fa fa-comment"></i></li>
-	  </ul>
-	 </div>
-	</div>
-	  </div>
-	 </div>
-	 <div class="col-sm-12 padding_all">
-	  <div class="center_4 clearfix">
-	   <div class="col-sm-4">
-	   <div class="center_2">
-	    <a href="#"><img src="img/9.jpg" width="100%"></a>
-	   </div>
-	  </div>
-	   <div class="col-sm-8">
-	  <div class="center_3">
-	  <h6><a href="#">OBIONEC OBIO</a>, JANUARY 11, 2016</h6>
-	  <h3><a href="#">Consectetur Adipiscing Elit. Integer Nec</a></h3>
-	  <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem</br> at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris</br> Vestibulum lacinia …</p>
-	  <ul>
-	      <li class="well_5"><a href="#">Nisi</a></li>
-		  <li class="well_5"><a href="#">Consectetur</a></li>
-		  <li>100 <i class="fa fa-eye"></i></li>
-		  <li><a href="#">1</a> <i class="fa fa-comment"></i></li>
-	  </ul>
-	 </div>
-	</div>
-	  </div>
-	 </div>
-	 <div class="col-sm-12 padding_all">
-	  <div class="center_4 clearfix">
-	   <div class="col-sm-4">
-	   <div class="center_2">
-	    <a href="#"><img src="img/10.jpg" width="100%"></a>
-	   </div>
-	  </div>
-	   <div class="col-sm-8">
-	  <div class="center_3">
-	  <h6><a href="#">SEMPER PORTA</a>, JANUARY 11, 2016</h6>
-	  <h3><a href="#">Consectetur Adipiscing Elit. Integer Nec</a></h3>
-	  <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem</br> at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris</br> Vestibulum lacinia …</p>
-	  <ul>
-	      <li class="well_5"><a href="#">Nisi</a></li>
-		  <li class="well_5"><a href="#">Consectetur</a></li>
-		  <li>100 <i class="fa fa-eye"></i></li>
-		  <li><a href="#">1</a> <i class="fa fa-comment"></i></li>
-	  </ul>
-	 </div>
-	</div>
-	  </div>
-	 </div>
-	 <div class="col-sm-12 padding_all">
-	  <div class="center_4 clearfix">
-	   <div class="col-sm-4">
-	   <div class="center_2">
-	    <a href="#"><img src="img/4.jpg" width="100%"></a>
-	   </div>
-	  </div>
-	   <div class="col-sm-8">
-	  <div class="center_3">
-	  <h6><a href="#">LACINIA NUNC</a>, JANUARY 11, 2016</h6>
-	  <h3><a href="#">Consectetur Adipiscing Elit. Integer Nec</a></h3>
-	  <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem</br> at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris</br> Vestibulum lacinia …</p>
-	  <ul>
-	      <li class="well_5"><a href="#">Nisi</a></li>
-		  <li class="well_5"><a href="#">Consectetur</a></li>
-		  <li>100 <i class="fa fa-eye"></i></li>
-		  <li><a href="#">1</a> <i class="fa fa-comment"></i></li>
-	  </ul>
-	 </div>
-	</div>
-	  </div>
-	 </div>
-	 <div class="center_5 clearfix">
-	  <ul>
-	      <li class="well_6">1</li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li>...</li>
-		  <li><a href="#">111</a></li>
-		  <li><a href="#">Next ></a></li>
-	  </ul>
-	 </div>
-	</div>
-	<div class="col-sm-4">
-	 <div class="center_main clearfix">
-	  <div class="center_6">
-	   <p><a href="#"><img src="img/11.jpg" width="100%"></a></p>
-	   <h3>PRAESENT MAURIS</h3>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="col-sm-4 padding_all">
-	     <div class="center_7">
-	      <p><a href="#"><img src="img/12.jpg"></a></p>
-	     </div>
-	   </div>
-	   <div class="col-sm-8 padding_all">
-	    <div class="center_8">
-		 <h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-		 <p>MARCH 3, 2017</p>
-		</div>
-	   </div>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="col-sm-4 padding_all">
-	     <div class="center_7">
-	      <p><a href="#"><img src="img/13.jpg"></a></p>
-	     </div>
-	   </div>
-	   <div class="col-sm-8 padding_all">
-	    <div class="center_8">
-		 <h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-		 <p>MARCH 3, 2017</p>
-		</div>
-	   </div>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="col-sm-4 padding_all">
-	     <div class="center_7">
-	      <p><a href="#"><img src="img/14.jpg"></a></p>
-	     </div>
-	   </div>
-	   <div class="col-sm-8 padding_all">
-	    <div class="center_8">
-		<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-		 <p>MARCH 3, 2017</p>
-		</div>
-	   </div>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="col-sm-4 padding_all">
-	     <div class="center_7">
-	      <p><a href="#"><img src="img/15.jpg"></a></p>
-	     </div>
-	   </div>
-	   <div class="col-sm-8 padding_all">
-	    <div class="center_8">
-		<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-		 <p>MARCH 3, 2017</p>
-		</div>
-	   </div>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="center_9">
-	      <p><a href="#"><img src="img/16.jpg"></a></p>
-	     </div> 
-	   <div class="center_6">
-	   <h3>SIGN IN</h3>
-	  </div>
-	   <div class="center_10">
-	    <p>Dignissim Lacinia</p>
-	   </div>
-	   <div class="center_11">
-	    <p><input type="text" name="Email" placeholder="Email Address" required=""></p>
-	   </div>
-	   <div class="center_12">
-	    <p><a href="#">Submit</a></p>
-	   </div>
-	  </div>
-	 </div>
-	 <div class="center_main clearfix">
-	  <div class="center_6">
-	   <p><a href="#"><img src="img/52.jpg" width="100%"></a></p>
-	   <h3>PRAESENT MAURIS</h3>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="col-sm-4 padding_all">
-	     <div class="center_7">
-	      <p><a href="#"><img src="img/12.jpg"></a></p>
-	     </div>
-	   </div>
-	   <div class="col-sm-8 padding_all">
-	    <div class="center_8">
-		 <h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-		 <p>MARCH 3, 2017</p>
-		</div>
-	   </div>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="col-sm-4 padding_all">
-	     <div class="center_7">
-			 <p><a href="#"><img src="{% static 'img/13.jpg' %}"></a></p>
-	     </div>
-	   </div>
-	   <div class="col-sm-8 padding_all">
-	    <div class="center_8">
-		 <h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-		 <p>MARCH 3, 2017</p>
-		</div>
-	   </div>
-	  </div>
-	  <div class="col-sm-12 padding_all">
-	   <div class="col-sm-4 padding_all">
-	     <div class="center_7">
-			 <p><a href="#"><img src="{% static 'img/14.jpg' %}"></a></p>
-	     </div>
-	   </div>
-	   <div class="col-sm-8 padding_all">
-	    <div class="center_8">
-		<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-		 <p>MARCH 3, 2017</p>
-		</div>
-	   </div>
-	  </div>
-	 </div>
-	</div>
-   </div>
-  </div>
+
+</div>
 
 {% endblock %}
 
