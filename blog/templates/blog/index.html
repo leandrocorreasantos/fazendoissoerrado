@@ -52,7 +52,7 @@
 					<p>{{ post.content|striptags|truncatewords:36 }}</p>
 	  				<ul>
 						{% for tag in post.tags.all %}
-							<li class="well_5"><a href="#">{{tag.name}}</a></li>
+							<li class="well_5"><a href="#">{{ tag.name }}</a></li>
 						{% endfor %}
 						<!--<li>100 <i class="fa fa-eye"></i></li>-->
 						<!--<li><a href="#">1</a> <i class="fa fa-comment"></i></li>-->
@@ -64,29 +64,19 @@
 	{% endfor %}
 	<div class="center_5 clearfix">
 	  	<ul>
-			{% if posts.has_previous %}
-				<li><a href="?page=1">&laquo</a></li>
-				<li><a href="?page={{ posts.previous_page_number }}">&lt;</a></li>
+			{% if pagination.has_previous %}
+				<li><a href="/posts?page=1">&laquo</a></li>
+				<li><a href="/posts?page={{ pagination.previous_page_number }}">&lt;</a></li>
 			{% endif %}
 
-			<li class="well_6">{{ posts.number }}</li>
+			<li class="well_6">{{ pagination.number }}</li>
 
-			{% if posts.has_next %}
-				<li><a href="?page={{ posts.next_page_number }}"> &gt; </a></li>
-				<li><a href="?page={{ posts.paginator.num_pages }}">&raquo;</a></li>
+			{% if pagination.has_next %}
+				<li><a href="/posts?page={{ pagination.next_page_number }}">&gt;</a></li>
+				<li><a href="/posts?page={{ pagination.paginator.num_pages }}">&raquo;</a></li>
 			{% endif %}
-			<!--
-	    	<li class="well_6">1</li>
-		  	<li><a href="#">2</a></li>
-		  	<li><a href="#">3</a></li>
-		  	<li>...</li>
-		  	<li><a href="#">111</a></li>
-		  	<li><a href="#">Next ></a></li>
-			-->
-	  	</ul>
+			</ul>
 	</div>
-
 </div>
-
 {% endblock %}
 

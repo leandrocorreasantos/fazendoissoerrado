@@ -67,15 +67,23 @@ class Post(models.Model):
 
     @classmethod
     def find(cls):
-        search = []
         try:
-            search = cls.objects.filter(
+            return cls.objects.filter(
                 published_date__lte=timezone.now()
             ).filter(published=True).order_by('-published_date').all()
         except Exception:
-            search = None
+            return None
 
-        return search
+    @classmethod
+    def find_by_tag(cls, tag_name):
+        try:
+            return cls.objects.filter(
+                published_data__lte=timezone.now()
+            ).filter(published=True).filter(
+                tags__name__in=[tag_name]
+            ).order_by('-published_date').all()
+        except Exception:
+            return None
 
     def save(self):
         self.slug = slugify(self.title)
