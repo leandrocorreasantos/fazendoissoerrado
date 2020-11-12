@@ -45,6 +45,7 @@ sitemaps = {
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('posts/', views.post_list, name='posts'),
     path('feed/', LatestEntriesFeed()),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path(

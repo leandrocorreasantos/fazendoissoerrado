@@ -7,7 +7,6 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.utils import timezone
 from taggit.managers import TaggableManager
-from tinymce.models import HTMLField
 # Create your models here.
 
 
@@ -37,7 +36,7 @@ class Post(models.Model):
     )
     slug = models.CharField(max_length=255, null=True, blank=True)
     content = models.TextField('Conteúdo', blank=True, null=True)
-    meta_description = models.TextField('meta-escription')
+    meta_description = models.TextField('meta-description')
     cover = models.ImageField(
         'Capa', upload_to='post/cover/', blank=True, null=True
     )
@@ -54,7 +53,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/post/{}-{}".format(self.category, self.slug)
+        return "/post/{}/{}-{}".format(self.category.slug, self.slug, self.pk)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -66,13 +65,29 @@ class Post(models.Model):
         self.published = False
         self.save()
 
-    def save(self):
-        if self.pk:
-            slug_field = '{}-{}-{}'.format(
-                self.category, self.title, self.pk
-            )
-            self.slug = slugify(slug_field)
+    @classmethod
+    def find(cls):
+        try:
+            return cls.objects.filter(
+                published_date__lte=timezone.now()
+            ).filter(published=True).order_by('-published_date').all()
+        except Exception:
+            return None
 
+    @classmethod
+    def find_by_tag(cls, tag_name):
+        try:
+            return cls.objects.filter(
+                published_data__lte=timezone.now()
+            ).filter(published=True).filter(
+                tags__name__in=[tag_name]
+            ).order_by('-published_date').all()
+        except Exception:
+            return None
+
+    def save(self):
+        self.slug = slugify(self.title)
+        if self.pk:
             this = Post.objects.get(pk=self.pk)
             try:
                 if this.cover != self.cover:

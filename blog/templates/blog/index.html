@@ -1,8 +1,82 @@
-<html>
-	<head>
-		<title>Blog Index</title>
-	</head>
-	<body>
-		<h1>Blog Index</h1>
-	</body>
-</html>
+{% extends "blog/default.html" %}
+{% load static %}
+{% load imagekit %}
+{% block site_title %}Inicio{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-12 padding_all">
+	<div class="col-sm-8">
+	<div class="center_1">
+     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+     	<ol class="carousel-indicators">
+        	<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        	<li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+        	<li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+      	</ol>
+      	<!-- Wrapper for slides -->
+      	<div class="carousel-inner">
+			{% for high in highlights %}
+				<div class="item {% if forloop.counter == 1 %}active{% endif %}">
+					{% thumbnail '800x468' high.cover -- alt="..." %}
+	        		<div class="carousel-caption">
+			  			<h2>{{ high.title|truncatewords:16 }}</h2>
+          			</div>
+	    		</div>
+			{% endfor %}
+		</div>
+      	<!-- Controls -->
+      	<a class="left carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="prev">
+        	<span class="glyphicon glyphicon-chevron-left"></span>
+      	</a>
+	    <a class="right carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="next">
+        	<span class="glyphicon glyphicon-chevron-right"></span>
+      	</a>
+    	</div>
+	</div>
+	{% for post in posts %}
+	<div class="col-sm-12 padding_all">
+		<div class="center_4 clearfix">
+			<div class="col-sm-4">
+		   		<div class="center_2">
+					{% if post.cover %}
+						<a href="{{ post.get_absolute_url }}">{% thumbnail '260x170' post.cover -- width='100%' %}</a>
+					{% endif %}
+		   		</div>
+	  		</div>
+		  	<div class="col-sm-8">
+		  		<div class="center_3">
+					<h6><a href="{{ post.get_absolute_url }}">{{ post.author.first_name|upper }}</a>,
+						{{ post.published_date|date:"d \d\e F \d\e Y H:i" }}</h6>
+					<h3><a href="{{ post.get_absolute_url }}">{{ post.title|title }}</a></h3>
+					<p>{{ post.content|striptags|truncatewords:36 }}</p>
+	  				<ul>
+						{% for tag in post.tags.all %}
+							<li class="well_5"><a href="#">{{ tag.name }}</a></li>
+						{% endfor %}
+						<!--<li>100 <i class="fa fa-eye"></i></li>-->
+						<!--<li><a href="#">1</a> <i class="fa fa-comment"></i></li>-->
+	  				</ul>
+	 			</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+	<div class="center_5 clearfix">
+	  	<ul>
+			{% if pagination.has_previous %}
+				<li><a href="/posts?page=1">&laquo</a></li>
+				<li><a href="/posts?page={{ pagination.previous_page_number }}">&lt;</a></li>
+			{% endif %}
+
+			<li class="well_6">{{ pagination.number }}</li>
+
+			{% if pagination.has_next %}
+				<li><a href="/posts?page={{ pagination.next_page_number }}">&gt;</a></li>
+				<li><a href="/posts?page={{ pagination.paginator.num_pages }}">&raquo;</a></li>
+			{% endif %}
+			</ul>
+	</div>
+</div>
+{% endblock %}
+
