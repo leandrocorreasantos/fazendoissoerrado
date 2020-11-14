@@ -1,6 +1,7 @@
 {% extends "blog/default.html" %}
 {% load static %}
 {% load imagekit %}
+{% load comments %}
 {% block site_title %}Inicio{% endblock %}
 {% block content %}
 <div class="row">
@@ -52,10 +53,13 @@
 					<p>{{ post.content|striptags|truncatewords:36 }}</p>
 	  				<ul>
 						{% for tag in post.tags.all %}
-							<li class="well_5"><a href="#">{{ tag.name }}</a></li>
+						<li class="well_5"><a href="/artigos/tag/{{ tag.name }}">{{ tag.name }}</a></li>
 						{% endfor %}
 						<!--<li>100 <i class="fa fa-eye"></i></li>-->
 						<!--<li><a href="#">1</a> <i class="fa fa-comment"></i></li>-->
+						{% get_comment_count for post as comment_count %}
+						<li><a href="#comments">{{ comment_count }} <i class="fa fa-comment"></i></a> </li>
+
 	  				</ul>
 	 			</div>
 			</div>

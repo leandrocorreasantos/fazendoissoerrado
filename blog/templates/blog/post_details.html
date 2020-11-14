@@ -12,7 +12,7 @@
 	 		<div class="blog_1">
 	  			<ul>
 				{% for tag in post.tags.all %}
-		    		<li><a href="#">{{ tag.name }}</a></li>
+					<li><a href="/artigos/tag/{{ tag.name }}">{{ tag.name }}</a></li>
 				{% endfor %}
 	  			</ul>
 	  			<h2>{{ post.title }}</h2>
@@ -28,7 +28,7 @@
 	    <ul>
 			<!--<li>11 <i class="fa fa-eye"></i></li>-->
 	 		{% get_comment_count for post as comment_count %}
-			<li><a href="#comments">{{ comment_count }}</a> <i class="fa fa-comment"></i></li>
+			<li><a href="#comments">{{ comment_count }} <i class="fa fa-comment"></i></a> </li>
 	    </ul>
 	  </div>
 	  </div>

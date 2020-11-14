@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
-from .models import Category, Post
+from .models import Post
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
@@ -57,7 +57,18 @@ def index(request):
 
 def tag(request, tag_name):
     page = request.GET.get('page', 1)
-    post_search = Post.find_by_tag(tag_name)
+    post_search = Post.objects.filter(
+        published_date__lte=timezone.now()
+    ).filter(published=True).filter(
+        tags__name__in=[tag_name]
+    ).order_by('-published_date').all()
+
+    if not post_search:
+        return render(
+            request,
+            'blog/list_by_tag.html'
+        )
+
     paginator = Paginator(post_search, 10)
     posts = paginator.get_page(page)
 

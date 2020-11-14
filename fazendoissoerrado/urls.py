@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
+from django_comments.feeds import LatestCommentFeed
 
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('sumernote/', include('django_summernote.urls')),
     path('', include('blog.urls')),
     path('comments/', include('django_comments.urls')),
+    path('comments/feed/', LatestCommentFeed()),
 
 ]
 if settings.DEBUG:

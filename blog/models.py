@@ -80,17 +80,6 @@ class Post(models.Model):
     def taglist(cls):
         return cls.tags.all()
 
-    @classmethod
-    def find_by_tag(cls, tag_name):
-        try:
-            return cls.objects.filter(
-                published_data__lte=timezone.now()
-            ).filter(published=True).filter(
-                tags__name__in=[tag_name]
-            ).order_by('-published_date').all()
-        except Exception:
-            return None
-
     def save(self):
         self.slug = slugify(self.title)
         if self.pk:
