@@ -6,7 +6,7 @@ Author: Templates On Web
 Author URI: http://templateonweb.com/
 Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
 */
-body{ 
+body{
 font-family: 'Caveat Brush', cursive;
   }
  ul{
@@ -14,28 +14,28 @@ font-family: 'Caveat Brush', cursive;
   margin:0;
   list-style:none!important;
   }
-.border_none_1{   
+.border_none_1{
 border-right:none!important;
 }
-.border_none_3{   
+.border_none_3{
 border-bottom:none!important;
-} 
-.border_none_2{   
+}
+.border_none_2{
 border-left:none!important;
-} 
-.border_bottom_1{   
+}
+.border_bottom_1{
 border-bottom:1px solid #cccccc;
 }
-.border_bottom_2{   
+.border_bottom_2{
 border-bottom:4px solid #669999;
 }
-.border_bottom_4{   
+.border_bottom_4{
 border-top:1px solid #cccccc;
 }
-.padding_left_1{ 
+.padding_left_1{
 padding-left:0;
 }
-.padding_right_1{ 
+.padding_right_1{
 padding-right:0;
 }
 .padding_all{ 
@@ -84,7 +84,8 @@ font-size: 20px;
 letter-spacing: 2px;
 }
 #header .navbar-default .navbar-nav>li>a:hover {
-color: #31bb89;
+/*color: #31bb89;*/
+	color: #d61616;
 }
 #header .nav>li>a {
 padding: 10px 10px;
@@ -92,41 +93,44 @@ margin: 5px;
 }
 #header .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
  background:none!important;
-color:none!important; 
+color:none!important;
 }
 #header .navbar-default{
 background:none;
 border:none;
 background-color: #060606;
 padding-top:10px;
-margin-bottom:0; 
+margin-bottom:0;
    }
 #header .navbar-brand {
    font-size:40px;
    font-family: 'Caveat Brush', cursive;
    font-style:oblique;
-   color: #FF9933!important;
+   /*color: #FF9933!important;*/
+   color: #d61616!important;
    font-weight:bold;
    padding-left:20px;
    }
-.well_1{ 
- font-size:18px;
-color: #31bb89;
- padding-left:0px;
-  }
-.well_2{ 
- font-size:15px;
- color:#FF9933;
-  }
-.well_3{ 
- font-size:18px;
-color: #31bb89;
-  }
-.well_4{ 
-color: #31bb89;
-   }
+.well_1{
+ 	font-size:18px;
+	color: #31bb89;
+ 	padding-left:0px;
+}
+.well_2{
+	font-size:15px;
+ 	/*color:#FF9933;*/
+	color:#d61616;
+}
+.well_3{
+ 	font-size:18px;
+	color: #31bb89;
+}
+.well_4{
+	/*color: #31bb89;*/
+	color: #ffffff;
+}
 #header .navbar-brand i{
-font-size:42px; 
+font-size:42px;
 color:#CC66FF;
    }
 #header .navbar-default .color_1{
@@ -162,8 +166,9 @@ background:none;
 color: #a175aa!important;
 }
 #header .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus {
-background:none;
-color: #31bb89;
+	background:none;
+	/*color: #31bb89;*/
+	color: #d61616;
 }
 #header .pad_1 {
 font-size: 16px;

@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{% block site_title %}{% endblock %}  | Fazendo Isso Errado</title>
-	<meta name="description" content="{% block meta_description%}{% endblock %} Fazendo Isso Errado. Um blog sobre coisas legais que tem na internet" />
-	<meta name="keywords" content="{% block meta_keywords %}{% endblock %}" />
+	<meta name="description" content="{% block meta_description%}Fazendo Isso Errado. Um blog sobre coisas legais que tem na internet{% endblock %}" />
+	<meta name="keywords" content="{% block meta_keywords %}{% endblock %} blog, lifestyle, cotidiano, humor" />
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 	<link href="{% static 'css/style.css' %}" rel="stylesheet" />
 	<link href="{% static 'css/element.css' %}" rel="stylesheet" />
@@ -32,15 +32,15 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="/">N<span class="well_4">e</span>ws Express</br><span class="well_1">Inceptos Ad</span><span class="well_2"> Massa</span><span class="well_3"> One</span></a>
+		<a class="navbar-brand" href="/">F<span class="well_4">a</span>zendo<br /><span class="well_2">isso </span><span class="well_4">er</span>rado</a>
 	</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-center">
-					<li class="active"><a href="/">INÍCIO</a></li>
-					<li><a href="/posts/">ARTIGOS</a></li>
-					<li><a href="/categories/">CATEGORIAS</a></li>
-					<li><a href="/contact/">CONTATO</a></li>
+					<li {% if request.path == '/' %}class="active"{% endif %}><a href="/">INÍCIO</a></li>
+					<li {% if 'artigo' in request.path %}class="active"{% endif %}><a href="/artigos/" >ARTIGOS</a></li>
+					<li {% if 'categorias' in request.path %}class="active"{% endif %}><a href="/categorias/">CATEGORIAS</a></li>
+					<li {% if 'contato' in request.path %}class="active"{% endif %}><a href="/contato/">CONTATO</a></li>
 				</ul>
 				<ul class="navbar-right">
 				   <li class="dropdown"><a class="text_1 pad_1" href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
@@ -69,8 +69,10 @@
 </section>
 <section id="center" class="clearfix">
  <div class="container">
-	 {% block content %}{% endblock %}
-	 <!-- begin sidebar -->
+
+	{% block content %}{% endblock %}
+
+	<!-- begin sidebar -->
 	<div class="col-sm-4">
 	<div class="center_main clearfix">
 	 	<div class="center_6">

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from .feeds import LatestEntriesFeed
 from django.contrib.sitemaps import Sitemap
@@ -10,9 +10,7 @@ from .models import Post, Category
 app_name = 'blog'
 
 infodict_posts = {
-    'queryset': Post.objects.filter(
-        published=True
-    ).order_by('-published_date'),
+    'queryset': Post.find(),
     'date_field': 'published_date'
 }
 infodicts_categories = {
@@ -34,7 +32,7 @@ class StaticSitemap(Sitemap):
 
 sitemaps = {
     'static': StaticSitemap,
-    'posts': GenericSitemap(
+    'artigos': GenericSitemap(
         infodict_posts,
         priority=0.7, changefreq='weekly'
     ),
@@ -45,7 +43,8 @@ sitemaps = {
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('posts/', views.post_list, name='posts'),
+    path('artigos/', views.post_list, name='artigos'),
+    path('artigo/<category>/<slug>-<pk>', views.post_details, name='artigo'),
     path('feed/', LatestEntriesFeed()),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path(
