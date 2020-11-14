@@ -23,7 +23,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sumernote/', include('django_summernote.urls')),
-    path('', include('blog.urls'))
+    path('', include('blog.urls')),
+    path('comments/', include('django_comments.urls')),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(

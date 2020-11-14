@@ -53,7 +53,9 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/post/{}/{}-{}".format(self.category.slug, self.slug, self.pk)
+        return "/artigo/{}/{}-{}".format(
+            self.category.slug, self.slug, self.pk
+        )
 
     def publish(self):
         self.published_date = timezone.now()
@@ -73,6 +75,10 @@ class Post(models.Model):
             ).filter(published=True).order_by('-published_date').all()
         except Exception:
             return None
+
+    @classmethod
+    def taglist(cls):
+        return cls.tags.all()
 
     @classmethod
     def find_by_tag(cls, tag_name):

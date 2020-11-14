@@ -65,15 +65,15 @@
 	<div class="center_5 clearfix">
 	  	<ul>
 			{% if pagination.has_previous %}
-				<li><a href="/posts?page=1">&laquo</a></li>
-				<li><a href="/posts?page={{ pagination.previous_page_number }}">&lt;</a></li>
+				<li><a href="/artigos?page=1">&laquo</a></li>
+				<li><a href="/artigos?page={{ pagination.previous_page_number }}">&lt;</a></li>
 			{% endif %}
 
 			<li class="well_6">{{ pagination.number }}</li>
 
 			{% if pagination.has_next %}
-				<li><a href="/posts?page={{ pagination.next_page_number }}">&gt;</a></li>
-				<li><a href="/posts?page={{ pagination.paginator.num_pages }}">&raquo;</a></li>
+				<li><a href="/artigos?page={{ pagination.next_page_number }}">&gt;</a></li>
+				<li><a href="/artigos?page={{ pagination.paginator.num_pages }}">&raquo;</a></li>
 			{% endif %}
 			</ul>
 	</div>
