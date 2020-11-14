@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 from .feeds import LatestEntriesFeed
 from django.contrib.sitemaps import Sitemap
@@ -45,6 +45,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('artigos/', views.post_list, name='artigos'),
     path('artigo/<category>/<slug>-<pk>', views.post_details, name='artigo'),
+    path('artigos/tag/<tag_name>', views.tag, name='post_by_tag'),
     path('feed/', LatestEntriesFeed()),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path(
