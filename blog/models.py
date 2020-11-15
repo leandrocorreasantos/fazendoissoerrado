@@ -47,25 +47,21 @@ class Post(models.Model):
         blank=True,
         null=True
     )
+    views = models.IntegerField(default=0, null=True, blank=True)
     tags = TaggableManager()
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return "/artigo/{}/{}-{}".format(
+        return "/artigo/{}/{}/{}".format(
             self.category.slug, self.slug, self.pk
         )
 
-    def publish(self):
-        self.published_date = timezone.now()
-        self.published = True
-        self.save()
-
-    def save_as_draft(self):
-        self.published_date = None
-        self.published = False
-        self.save()
+    def increment_view_count(self):
+        post = Post.objects.filter(pk=self.pk)
+        post.views += 1
+        post.save()
 
     @classmethod
     def find(cls):
