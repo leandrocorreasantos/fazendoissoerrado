@@ -16,6 +16,16 @@ def post_details(request, category, slug, pk):
     ).filter(pk=pk)
     post = get_object_or_404(queryset)
     keywords = post.taglist()
+    ''' prevent counter view to repeat counter on update page '''
+    last_post = request.session.get('LAST_POST', None)
+    this_post = request.path
+    if not last_post or this_post != last_post:
+        ''' increment counter from post '''
+        post.views += 1
+        post.save()
+        ''' remember the last post viewed '''
+        request.session['LAST_POST'] = this_post
+
     return render(
         request,
         'blog/post_details.html',

@@ -7,32 +7,32 @@
 {% block meta_description %} {{ post.meta_description }} {% endblock %}
 {% block content %}
 <div class="row">
-   	<div class="col-sm-12 padding_all">
+	<div class="col-sm-12 padding_all">
 		<div class="col-sm-8">
-	 		<div class="blog_1">
-	  			<ul>
-				{% for tag in post.tags.all %}
+			<div class="blog_1">
+				<ul>
+					{% for tag in post.tags.all %}
 					<li><a href="/artigos/tag/{{ tag.name }}">{{ tag.name }}</a></li>
-				{% endfor %}
-	  			</ul>
-	  			<h2>{{ post.title }}</h2>
-	 		</div>
-	 		<div class="col-sm-12 padding_all">
-	  			<div class="col-sm-3 padding_all">
-	   <div class="blog_2">
-		   <h4><a href="#">{{ post.author.first_name|upper }}</a>, {{ post.published_date|date:"j F Y H:i" }} </h4>
-	   </div>
-	  </div>
-	  <div class="col-sm-9 padding_all">
-	   <div class="blog_3">
-	    <ul>
-			<!--<li>11 <i class="fa fa-eye"></i></li>-->
-	 		{% get_comment_count for post as comment_count %}
-			<li><a href="#comments">{{ comment_count }} <i class="fa fa-comment"></i></a> </li>
-	    </ul>
-	  </div>
-	  </div>
-	 </div>
+					{% endfor %}
+				</ul>
+				<h2>{{ post.title }}</h2>
+			</div>
+			<div class="col-sm-12 padding_all">
+				<div class="col-sm-3 padding_all">
+					<div class="blog_2">
+						<h4><a href="#">{{ post.author.first_name|upper }}</a>, {{ post.published_date|date:"j F Y H:i" }} </h4>
+					</div>
+				</div>
+				<div class="col-sm-9 padding_all">
+					<div class="blog_3">
+						<ul>
+							<li>{{ post.views }} <i class="fa fa-eye"></i></li>
+							{% get_comment_count for post as comment_count %}
+							<li><a href="#comments">{{ comment_count }} <i class="fa fa-comment"></i></a> </li>
+						</ul>
+					</div>
+				</div>
+			</div>
 	 <!--
 	  <div class="col-sm-12 padding_all">
 	  <div class="col-sm-1 padding_all">
@@ -50,73 +50,73 @@
 	   </div>
 	  </div>
 	 </div>
-	 -->
+	-->
 	<div class="col-sm-12 padding_all">
-	  <div class="blog_11">
-		  <p><a href="#">
-			  {% thumbnail '750x412' post.cover -- width='100%' %}
-		  </a></p>
-	  </div>
+		<div class="blog_11">
+			<p><a href="#">
+				{% thumbnail '750x412' post.cover -- width='100%' %}
+			</a></p>
+		</div>
 	</div>
 
-	  <div class="col-sm-12 padding_all">
-	   	<div class="details_1">
+	<div class="col-sm-12 padding_all">
+		<div class="details_1">
 			{% autoescape off %}
 			{{ post.content }}
 			{% endautoescape %}
 		</div>
-	  </div>
+	</div>
 	<div class="col-sm-12 padding_all">
-	  	<div class="details_4">
-	 		<h5>O que achou?</h5>
-	 		<p>Deixe sua opinião nos comentários :-)</p>
+		<div class="details_4">
+			<h5>O que achou?</h5>
+			<p>Deixe sua opinião nos comentários :-)</p>
 		<!--</div>
 
-		<div class="details_4" id="comments">-->
-			{% get_comment_list for post as comment_list %}
-			{% for comment in comment_list %}
+			<div class="details_4" id="comments">-->
+				{% get_comment_list for post as comment_list %}
+				{% for comment in comment_list %}
 				<h5>
 					{% if comment.url %}
-						<a href="{{ comment.url }}" target="_blank">{{ comment.name }}</a>
+					<a href="{{ comment.url }}" target="_blank">{{ comment.name }}</a>
 					{% else %}
-						{{ comment.name }}
+					{{ comment.name }}
 					{% endif %}
 				</h5>
 				<p>{{ comment.submit_date }}</p>
 				<p>{{ comment.comment }}</p>
-			{% endfor %}
+				{% endfor %}
+			</div>
+
+			{% get_comment_form for post as comment_form %}
+			<form action="{% comment_form_target %}" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{ post.get_absolute_url }}#comments" />
+				<div class="details_6">
+					<label for="id_name">Nome:</label>
+					<input type="text" id="id_name" name="name" class="form-control" placeholder="" />
+				</div>
+				<div class="details_6">
+					<label for="id_email">E-mail:</label>
+					<input type="text" id="id_email" name="email" class="form-control" placeholder="" />
+				</div>
+				<div class="details_6">
+					<label for="id_url">Website:</label>
+					<input type="text" id="id_url" name="url" class="form-control" placeholder="" />
+				</div>
+				<div class="details_5">
+					<label for="id_comment">Comentário:</label>
+					<textarea class="form-control" placeholder="" id="id_comment" name="comment"></textarea>
+				</div>
+				<input id="id_honeypot" type="hidden" name="honeypot" />
+				{{ comment_form.content_type }}
+				{{ comment_form.object_pk }}
+				{{ comment_form.timestamp }}
+				{{ comment_form.security_hash }}
+
+				<input type="submit" name="submit" value="Post">
+				<input type="submit" name="preview" value="Preview">
+			</form>
+
 		</div>
-
-		{% get_comment_form for post as comment_form %}
-		<form action="{% comment_form_target %}" method="post">
-			{% csrf_token %}
-			<input type="hidden" name="next" value="{{ post.get_absolute_url }}#comments" />
-			<div class="details_6">
-				<label for="id_name">Nome:</label>
-				<input type="text" id="id_name" name="name" class="form-control" placeholder="" />
-			</div>
-			<div class="details_6">
-				<label for="id_email">E-mail:</label>
-				<input type="text" id="id_email" name="email" class="form-control" placeholder="" />
-			</div>
-			<div class="details_6">
-				<label for="id_url">Website:</label>
-				<input type="text" id="id_url" name="url" class="form-control" placeholder="" />
-			</div>
-			<div class="details_5">
-				<label for="id_comment">Comentário:</label>
-				<textarea class="form-control" placeholder="" id="id_comment" name="comment"></textarea>
-			</div>
-			<input id="id_honeypot" type="hidden" name="honeypot" />
-			{{ comment_form.content_type }}
-			{{ comment_form.object_pk }}
-			{{ comment_form.timestamp }}
-			{{ comment_form.security_hash }}
-
-			<input type="submit" name="submit" value="Post">
-        	<input type="submit" name="preview" value="Preview">
-		</form>
-
 	</div>
-</div>
-{% endblock %}
+	{% endblock %}
