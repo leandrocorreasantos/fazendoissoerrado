@@ -1,8 +1,20 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import Post
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from .forms import ContatoForm
+import smtplib
+from django.contrib import messages
+from django.core.mail import BadHeaderError
+from fazendoissoerrado.settings import (
+    CONTACT_EMAIL_BOX,
+    EMAIL_HOST,
+    EMAIL_PORT,
+    EMAIL_HOST_USER,
+    EMAIL_HOST_PASSWORD,
+    EMAIL_USE_SSL
+)
 
 
 # Create your views here.
@@ -87,3 +99,54 @@ def tag(request, tag_name):
         'blog/list_by_tag.html',
         {'posts': posts}
     )
+
+
+def contato(request):
+    assunto = 'Fazendo Isso Errado - Contato do Site'
+    form = ContatoForm()
+    if request.method == 'POST':
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            email = form.cleaned_data['email']
+            telefone = form.cleaned_data['telefone']
+            msg = form.cleaned_data['mensagem']
+
+            body_message = u"Nome: {}\nEmail: {}\nTelefone: {}\n\n{}".format(
+                nome, email, telefone, msg
+            )
+
+            mensagem = u"\r\n".join((
+                "From: %s" % EMAIL_HOST_USER,
+                "To: %s" % CONTACT_EMAIL_BOX,
+                "Subject: %s" % assunto,
+                "Reply-To: %s" % email,
+                "",
+                body_message
+            )).encode('utf-8')
+
+            try:
+                if EMAIL_USE_SSL is True:
+                    smtp = smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT)
+                    smtp.login(EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
+                else:
+                    smtp = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+                    smtp.use_ehlo_or_helo_if_needed()
+
+                smtp.sendmail(EMAIL_HOST_USER, [CONTACT_EMAIL_BOX], mensagem)
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    "E-mail enviado com sucesso!"
+                )
+                smtp.quit()
+            except BadHeaderError as er:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Houve um erro ao enviar a mensagem"
+                )
+                print(er)
+            except Exception as e:
+                print(e)
+
+    return render(request, 'blog/contato.html', {'form': form})
