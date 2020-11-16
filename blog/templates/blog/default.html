@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" />
 	<link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">
+	{% block css_script %}{% endblock %}
 
 	<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -79,18 +80,18 @@
 			{% endif %}
 
 			{% block content %}{% endblock %}
-
+			{% block sidebar %}
 			<!-- begin sidebar -->
 			<div class="col-sm-4">
 				<div class="center_main clearfix">
 					<div class="center_6">
-						<p><a href="#"><img src="img/11.jpg" width="100%"></a></p>
+						<p><a href="#"><img src="{% static 'img/11.jpg' %}" width="100%"></a></p>
 						<h3>PRAESENT MAURIS</h3>
 					</div>
 					<div class="col-sm-12 padding_all">
 						<div class="col-sm-4 padding_all">
 							<div class="center_7">
-								<p><a href="#"><img src="img/12.jpg"></a></p>
+								<p><a href="#"><img src="{% static 'img/12.jpg' %}"></a></p>
 							</div>
 						</div>
 						<div class="col-sm-8 padding_all">
@@ -103,7 +104,7 @@
 					<div class="col-sm-12 padding_all">
 						<div class="col-sm-4 padding_all">
 							<div class="center_7">
-								<p><a href="#"><img src="img/13.jpg"></a></p>
+								<p><a href="#"><img src="{% static 'img/13.jpg' %}"></a></p>
 							</div>
 						</div>
 						<div class="col-sm-8 padding_all">
@@ -116,7 +117,7 @@
 					<div class="col-sm-12 padding_all">
 						<div class="col-sm-4 padding_all">
 							<div class="center_7">
-								<p><a href="#"><img src="img/14.jpg"></a></p>
+								<p><a href="#"><img src="{% static 'img/14.jpg' %}"></a></p>
 							</div>
 						</div>
 						<div class="col-sm-8 padding_all">
@@ -129,7 +130,7 @@
 					<div class="col-sm-12 padding_all">
 						<div class="col-sm-4 padding_all">
 							<div class="center_7">
-								<p><a href="#"><img src="img/15.jpg"></a></p>
+								<p><a href="#"><img src="{% static 'img/15.jpg' %}"></a></p>
 							</div>
 						</div>
 						<div class="col-sm-8 padding_all">
@@ -141,7 +142,7 @@
 					</div>
 					<div class="col-sm-12 padding_all">
 						<div class="center_9">
-							<p><a href="#"><img src="img/16.jpg"></a></p>
+							<p><a href="#"><img src="{% static 'img/16.jpg' %}"></a></p>
 						</div>
 						<div class="center_6">
 							<h3>SIGN IN</h3>
@@ -159,13 +160,13 @@
 				</div>
 				<div class="center_main clearfix">
 					<div class="center_6">
-						<p><a href="#"><img src="img/52.jpg" width="100%"></a></p>
+						<p><a href="#"><img src="{% static 'img/52.jpg' %}" width="100%"></a></p>
 						<h3>PRAESENT MAURIS</h3>
 					</div>
 					<div class="col-sm-12 padding_all">
 						<div class="col-sm-4 padding_all">
 							<div class="center_7">
-								<p><a href="#"><img src="img/12.jpg"></a></p>
+								<p><a href="#"><img src="{% static 'img/12.jpg' %}"></a></p>
 							</div>
 						</div>
 						<div class="col-sm-8 padding_all">
@@ -203,6 +204,7 @@
 					</div>
 				</div>
 			</div>
+			{% endblock %}
 		</div>
 	</div>
 </div>
@@ -222,11 +224,11 @@
 			<div class="col-sm-4">
 				<div class="footer_3">
 					<h3>NOSTRA</h3>
-					<p><a href="#"><img src="img/17.jpg"></a></p>
+					<p><a href="#"><img src="{% static 'img/17.jpg' %}"></a></p>
 					<h4><a href="#">Nibh Elementum Imperdiet. Duis Sagittis?</a></h4>
 				</div>
 				<div class="footer_3">
-					<p><a href="#"><img src="img/18.jpg"></a></p>
+					<p><a href="#"><img src="{% static 'img/18.jpg' %}"></a></p>
 					<h4><a href="#"> Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Integer Nec Odionec Odio</a></h4>
 				</div>
 			</div>
@@ -237,7 +239,7 @@
 				<div class="col-sm-12">
 					<div class="col-sm-4">
 						<div class="footer_5">
-							<p><a href="#"><img src="img/19.jpg"></a></p>
+							<p><a href="#"><img src="{% static 'img/19.jpg' %}"></a></p>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -250,7 +252,7 @@
 				<div class="col-sm-12">
 					<div class="col-sm-4">
 						<div class="footer_5">
-							<p><a href="#"><img src="img/20.jpg"></a></p>
+							<p><a href="#"><img src="{% static 'img/20.jpg' %}"></a></p>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -263,7 +265,7 @@
 				<div class="col-sm-12">
 					<div class="col-sm-4">
 						<div class="footer_5">
-							<p><a href="#"><img src="img/21.jpg"></a></p>
+							<p><a href="#"><img src="{% static 'img/21.jpg' %}"></a></p>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -306,5 +308,6 @@
 </section>
 <script src="{% static 'js/cbpAnimatedHeader.js' %}"></script>
 <script src="{% static 'js/classie.js' %}"></script>
+{% block js_script %}{% endblock %}
 </body>
 </html>

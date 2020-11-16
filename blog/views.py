@@ -124,6 +124,11 @@ def contato(request):
                 body_message
             )).encode('utf-8')
 
+            messages.add_message(
+                    request,
+                    messages.INFO,
+                    "pronto para enviar mensagem")
+
             try:
                 if EMAIL_USE_SSL is True:
                     smtp = smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT)
@@ -139,14 +144,18 @@ def contato(request):
                     "E-mail enviado com sucesso!"
                 )
                 smtp.quit()
-            except BadHeaderError as er:
+            except BadHeaderError:
                 messages.add_message(
                     request,
                     messages.ERROR,
                     "Houve um erro ao enviar a mensagem"
                 )
-                print(er)
             except Exception as e:
-                print(e)
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Houve um erro ao enviar a mensagem: {}".format(e)
+                )
+
 
     return render(request, 'blog/contato.html', {'form': form})
