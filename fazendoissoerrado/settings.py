@@ -66,6 +66,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+""" email configs """
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+CONTACT_EMAIL_BOX = env("CONTACT_EMAIL_BOX")
+
+EMAIL_USE_TLS = bool(env("EMAIL_USE_TLS"))
+EMAIL_USE_SSL = bool(env("EMAIL_USE_SSL"))
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
 ROOT_URLCONF = 'fazendoissoerrado.urls'
 
 TEMPLATES = [

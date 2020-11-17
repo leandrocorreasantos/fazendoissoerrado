@@ -18,11 +18,13 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
          {% for high in highlights %}
-         <div class="item {% if forloop.counter == 1 %}active{% endif %}">
-           {% thumbnail '800x468' high.cover -- alt="..." %}
-           <div class="carousel-caption">
-            <h2>{{ high.title|truncatewords:16 }}</h2>
-          </div>
+		 <div class="item {% if forloop.counter == 1 %}active{% endif %}" onclick="location.href='{{ high.get_absolute_url }}'" >
+			{% if high.cover %}
+	           	{% thumbnail '800x468' high.cover -- alt="..." %}
+			{% endif %}
+			<div class="carousel-caption" onclick="location.href='{{ high.get_absolute_url }}'">
+				<h2><a href="{{ high.get_absolute_url }}">{{ high.title|truncatewords:16 }}</a></h2>
+          	</div>
         </div>
         {% endfor %}
       </div>
