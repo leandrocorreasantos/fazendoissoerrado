@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'imagekit',
     'taggit',
     'django_summernote',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'adsense.apps.AdsenseConfig'
 ]
 
 MIDDLEWARE = [
