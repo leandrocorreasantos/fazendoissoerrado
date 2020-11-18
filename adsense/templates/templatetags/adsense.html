@@ -1,0 +1,8 @@
+{% if ads.image and ads.address %}
+	<a href="{{ ads.address }}">
+		<img src="/media/{{ ads.image }}" width="100%">
+	</a>
+{% else %}
+<div class="ads" style="max-width:{{ width }}px; max-height:{{ height }}px">{{ ads.code|safe }}</div>
+{% endif %}
+
