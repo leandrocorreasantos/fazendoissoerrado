@@ -1,4 +1,5 @@
 {% load static %}
+{% load post_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,122 +87,19 @@
 				<div class="center_main clearfix">
 					<div class="center_6">
 						<p><a href="#"><img src="{% static 'img/11.jpg' %}" width="100%"></a></p>
-						<h3>PRAESENT MAURIS</h3>
 					</div>
-					<div class="col-sm-12 padding_all">
-						<div class="col-sm-4 padding_all">
-							<div class="center_7">
-								<p><a href="#"><img src="{% static 'img/12.jpg' %}"></a></p>
-							</div>
-						</div>
-						<div class="col-sm-8 padding_all">
-							<div class="center_8">
-								<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-								<p>MARCH 3, 2017</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 padding_all">
-						<div class="col-sm-4 padding_all">
-							<div class="center_7">
-								<p><a href="#"><img src="{% static 'img/13.jpg' %}"></a></p>
-							</div>
-						</div>
-						<div class="col-sm-8 padding_all">
-							<div class="center_8">
-								<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-								<p>MARCH 3, 2017</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 padding_all">
-						<div class="col-sm-4 padding_all">
-							<div class="center_7">
-								<p><a href="#"><img src="{% static 'img/14.jpg' %}"></a></p>
-							</div>
-						</div>
-						<div class="col-sm-8 padding_all">
-							<div class="center_8">
-								<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-								<p>MARCH 3, 2017</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 padding_all">
-						<div class="col-sm-4 padding_all">
-							<div class="center_7">
-								<p><a href="#"><img src="{% static 'img/15.jpg' %}"></a></p>
-							</div>
-						</div>
-						<div class="col-sm-8 padding_all">
-							<div class="center_8">
-								<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-								<p>MARCH 3, 2017</p>
-							</div>
-						</div>
-					</div>
+					{% most_viewed %}
 					<div class="col-sm-12 padding_all">
 						<div class="center_9">
 							<p><a href="#"><img src="{% static 'img/16.jpg' %}"></a></p>
-						</div>
-						<div class="center_6">
-							<h3>SIGN IN</h3>
-						</div>
-						<div class="center_10">
-							<p>Dignissim Lacinia</p>
-						</div>
-						<div class="center_11">
-							<p><input type="text" name="Email" placeholder="Email Address" required=""></p>
-						</div>
-						<div class="center_12">
-							<p><a href="#">Submit</a></p>
 						</div>
 					</div>
 				</div>
 				<div class="center_main clearfix">
 					<div class="center_6">
 						<p><a href="#"><img src="{% static 'img/52.jpg' %}" width="100%"></a></p>
-						<h3>PRAESENT MAURIS</h3>
 					</div>
-					<div class="col-sm-12 padding_all">
-						<div class="col-sm-4 padding_all">
-							<div class="center_7">
-								<p><a href="#"><img src="{% static 'img/12.jpg' %}"></a></p>
-							</div>
-						</div>
-						<div class="col-sm-8 padding_all">
-							<div class="center_8">
-								<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-								<p>MARCH 3, 2017</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 padding_all">
-						<div class="col-sm-4 padding_all">
-							<div class="center_7">
-								<p><a href="#"><img src="{% static 'img/13.jpg' %}"></a></p>
-							</div>
-						</div>
-						<div class="col-sm-8 padding_all">
-							<div class="center_8">
-								<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-								<p>MARCH 3, 2017</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 padding_all">
-						<div class="col-sm-4 padding_all">
-							<div class="center_7">
-								<p><a href="#"><img src="{% static 'img/14.jpg' %}"></a></p>
-							</div>
-						</div>
-						<div class="col-sm-8 padding_all">
-							<div class="center_8">
-								<h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec</a></h5>
-								<p>MARCH 3, 2017</p>
-							</div>
-						</div>
-					</div>
+					{% most_recent %}
 				</div>
 			</div>
 			{% endblock %}
@@ -214,7 +112,7 @@
 		<div class="footer_main clearfix">
 			<div class="col-sm-4">
 				<div class="footer_1">
-					<h3>DAPIBUS DIAM</h3>
+					<h3>QUEM SOMOS</h3>
 					<p><a href="#"><i class="fa fa-star-half-o"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-half-o"></i> Integer</a></p>
 				</div>
 				<div class="footer_2">
@@ -234,72 +132,16 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="footer_4">
-					<h3>SEMPER PORTA:</h3>
+					<h3>MAIS RECENTES:</h3>
 				</div>
-				<div class="col-sm-12">
-					<div class="col-sm-4">
-						<div class="footer_5">
-							<p><a href="#"><img src="{% static 'img/19.jpg' %}"></a></p>
-						</div>
-					</div>
-					<div class="col-sm-8">
-						<div class="footer_6">
-							<h5><a href="#">Praesent Mauris. Fusce Nec Tellus Sed Augue Semper</a></h5>
-							<p>MARCH 11, 2017</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="col-sm-4">
-						<div class="footer_5">
-							<p><a href="#"><img src="{% static 'img/20.jpg' %}"></a></p>
-						</div>
-					</div>
-					<div class="col-sm-8">
-						<div class="footer_6">
-							<h5><a href="#">Nulla Quis Sem At Nibh Elementum Imperdiet. Duis</a></h5>
-							<p>MARCH 11, 2017</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="col-sm-4">
-						<div class="footer_5">
-							<p><a href="#"><img src="{% static 'img/21.jpg' %}"></a></p>
-						</div>
-					</div>
-					<div class="col-sm-8">
-						<div class="footer_6">
-							<h5><a href="#">Augue Semper Porta. Mauris Massa. Vestibulum Lacinia Arcu</a></h5>
-							<p>MARCH 11, 2017</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="col-sm-4">
-						<div class="footer_5">
-							<p><a href="#"><img src="{% static 'img/22.jpg' %}"></a></p>
-						</div>
-					</div>
-					<div class="col-sm-8">
-						<div class="footer_6">
-							<h5><a href="#">Praesent Mauris. Fusce Nec Tellus Sed Augue Semper Porta.</a></h5>
-							<p>MARCH 11, 2017</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="footer_7">
-						<p><i class="fa fa-arrow-right"></i><a href="#">Dignissim Lacinia Ad</a></p>
-					</div>
-				</div>
+				{% most_recent_footer %}
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-12 padding_all">
 		<div class="footer_inner clearfix">
 			<div class="col-sm-10">
-				<div class="footer_8"><p>© 2013 Your Website Name. All Rights Reserved. Design by<a href="http://www.TemplateOnWeb"> Template On Web</a> </p></div>
+				<div class="footer_8"><p>Design by<a href="http://www.TemplateOnWeb"> Template On Web</a> </p></div>
 			</div>
 			<div class="col-sm-2">
 			</div>
