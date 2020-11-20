@@ -1,8 +1,13 @@
 from django import template
 from django.utils import timezone
-from blog.models import Post
+from blog.models import Post, Category
 
 register = template.Library()
+
+
+@register.simple_tag()
+def list_categories():
+    return Category.objects.order_by('name').all()
 
 
 @register.inclusion_tag('templatetags/post_list.html')
