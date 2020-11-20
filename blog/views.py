@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from .models import Post
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.db.models import Q
 from .forms import ContatoForm
 import smtplib
 from django.contrib import messages
@@ -58,6 +59,26 @@ def post_list(request):
     )
 
 
+def post_by_category(request, category_slug):
+    page = request.GET.get('page', 1)
+    post_search = Post.objects.filter(
+        published_date__lte=timezone.now()
+    ).filter(
+        published=True
+    ).filter(
+        category__slug=category_slug
+    ).order_by('-published_date').all()
+
+    paginator = Paginator(post_search, 10)
+    posts = paginator.get_page(page)
+
+    return render(
+        request,
+        'blog/post_list.html',
+        {'posts': posts}
+    )
+
+
 def index(request):
     page = 1
     highlights = Post.find()[:3]
@@ -75,6 +96,30 @@ def index(request):
             'pagination': pagination
         }
     )
+
+
+def search(request):
+    page = request.GET.get('page', 1)
+    q = request.GET.get('q', None)
+    if q:
+        post_search = Post.objects.filter(
+            published_date__lte=timezone.now()
+        ).filter(published=True).filter(
+            Q(title__icontains=q) |
+            Q(subtitle__icontains=q) |
+            Q(content__icontains=q)
+        ).order_by('-published_date').all()
+
+        paginator = Paginator(post_search, 10)
+        posts = paginator.get_page(page)
+
+        return render(
+            request,
+            'blog/search.html',
+            {'posts': posts, 'q': q}
+        )
+
+    return redirect('/')
 
 
 def tag(request, tag_name):

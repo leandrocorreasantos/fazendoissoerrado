@@ -7,9 +7,6 @@
 <div class="row">
 	<div class="col-sm-12 padding_all">
 		<div class="col-sm-8">
-			{% if not posts %}
-			<h3>Nenhum resultado encontrado</h3>
-			{% endif %}
 			{% for post in posts %}
 			<div class="col-sm-12 padding_all">
 				<div class="center_4 clearfix">
@@ -33,30 +30,27 @@
 								<li>{{ post.views }} <i class="fa fa-eye"></i></li>
 								{% get_comment_count for post as comment_count %}
 								<li><a href="#comments">{{ comment_count }} <i class="fa fa-comment"></i></a> </li>
-
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 			{% endfor %}
-			{% if posts %}
 			<div class="center_5 clearfix">
 				<ul>
 					{% if posts.has_previous %}
-					<li><a href="?page=1">&laquo</a></li>
-					<li><a href="?page={{ posts.previous_page_number }}">&lt;</a></li>
+					<li><a href="?q={{ q }}&page=1">&laquo</a></li>
+					<li><a href="?q={{ q }}&page={{ posts.previous_page_number }}">&lt;</a></li>
 					{% endif %}
 
 					<li class="well_6">{{ posts.number }}</li>
 
 					{% if posts.has_next %}
-					<li><a href="?page={{ posts.next_page_number }}">&gt;</a></li>
-					<li><a href="?page={{ posts.paginator.num_pages }}">&raquo;</a></li>
+					<li><a href="?q={{ q }}&page={{ posts.next_page_number }}">&gt;</a></li>
+					<li><a href="?q={{ q }}&page={{ posts.paginator.num_pages }}">&raquo;</a></li>
 					{% endif %}
 				</ul>
 			</div>
-			{% endif %}
 		</div>
 		{% endblock %}
 
