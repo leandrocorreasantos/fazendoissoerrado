@@ -10,6 +10,15 @@
 	<title>{% block site_title %}{% endblock %}  | Fazendo Isso Errado</title>
 	<meta name="description" content="{% block meta_description%}Fazendo Isso Errado. Um blog sobre coisas legais que tem na internet{% endblock %}" />
 	<meta name="keywords" content="{% block meta_keywords %}{% endblock %} blog, lifestyle, cotidiano, humor" />
+
+	<meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+	<meta property="og:title" content="{% block og_title %}Início{% endblock %} | Fazendo Isso Errado" />
+	<meta property="og:description" content="{% block og_description %}Fazendo Isso Errado. Um blog sobre coisas legais que tem na internet{% endblock %}" />
+	<meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}" />
+	<meta property="og:image" content="{% block og_image %}{% static 'img/fazendoissoerrado.jpg' %}{% endblock %}" />
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:site_name" content="Fazendo Isso Errado" />
+
 	<link rel="alternate" type="application/atom+xml" title="Fazendo Isso Errado | Feed de Artigos" href="/feed/">
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 	<link href="{% static 'css/style.css' %}" rel="stylesheet" />
@@ -153,6 +162,8 @@
 </section>
 <script src="{% static 'js/cbpAnimatedHeader.js' %}"></script>
 <script src="{% static 'js/classie.js' %}"></script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v9.0&appId=1353894315002911&autoLogAppEvents=1" nonce="UNClSYVz"></script>
 {% block js_script %}{% endblock %}
 </body>
 </html>

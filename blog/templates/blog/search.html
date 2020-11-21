@@ -2,7 +2,12 @@
 {% load static %}
 {% load imagekit %}
 {% load comments %}
-{% block site_title %}Inicio{% endblock %}
+{% block site_title %}Resultados da busca por {{ q }}{% endblock %}
+{% block og_type %}website{% endblock %}
+{% block og_title %}Busca por {{ q }}{% endblock %}
+{% block meta_keywords %}busca, {{q }},{% endblock %}
+{% block meta_description %} Fazendo Isso Errado | Resultado da busca por {{ q }} {% endblock %}
+
 {% block content %}
 <div class="row">
 	<div class="col-sm-12 padding_all">
