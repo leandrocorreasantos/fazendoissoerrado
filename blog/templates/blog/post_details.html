@@ -3,8 +3,12 @@
 {% load imagekit %}
 {% load comments %}
 {% block site_title %}{{ post.title }}{% endblock %}
-{% block meta_keywords %} {{ keywords|join:", " }} {% endblock %}
-{% block meta_description %} {{ post.meta_description }} {% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.meta_description }}{% endblock %}
+{% block og_image %}/media/{{ post.cover }}{% endblock %}
+{% block meta_keywords %} {{ keywords|join:", " }}, {% endblock %}
+{% block meta_description %}{{ post.meta_description }}{% endblock %}
 {% block content %}
 <div class="row">
 	<div class="col-sm-12 padding_all">
@@ -18,46 +22,55 @@
 				<h2>{{ post.title }}</h2>
 			</div>
 			<div class="col-sm-12 padding_all">
-				<div class="col-sm-3 padding_all">
+				<div class="col-sm-10 padding_all">
 					<div class="blog_2">
 						<h4><a href="#">{{ post.author.first_name|upper }}</a>, {{ post.published_date|date:"j F Y H:i" }} </h4>
 					</div>
 				</div>
-				<div class="col-sm-9 padding_all">
+				<div class="col-sm-2 padding_all">
 					<div class="blog_3">
 						<ul>
 							<li>{{ post.views }} <i class="fa fa-eye"></i></li>
 							{% get_comment_count for post as comment_count %}
-							<li><a href="#comments">{{ comment_count }} <i class="fa fa-comment"></i></a> </li>
+							<li>{{ comment_count }} <i class="fa fa-comment"></i></li>
 						</ul>
 					</div>
 				</div>
 			</div>
-	 <!--
-	  <div class="col-sm-12 padding_all">
-	  <div class="col-sm-1 padding_all">
-	   <div class="blog_4">
-	     <h4>2</h4>
-		<p>CONUBIA</p>
-	   </div>
-	  </div>
-	  <div class="col-sm-11 padding_all">
-	   <div class="blog_5">
-	    <ul>
-		    <li class="well_7"><a href="#"><i class="fa fa-facebook"></i>Share</a></li>
-			<li class="well_8"><a href="#"><i class="fa fa-twitter"></i>Tweet</a></li>
-		</ul>
-	   </div>
-	  </div>
-	 </div>
-	-->
-	<div class="col-sm-12 padding_all">
-		<div class="blog_11">
-			<p><a href="#">
+		<div class="col-sm-12 padding_all">
+			<div class="blog_11">
+				<p><a href="#">
 				{% thumbnail '750x412' post.cover -- width='100%' %}
-			</a></p>
+				</a></p>
+			</div>
 		</div>
-	</div>
+		<div class="col-sm-12 padding_all">
+				<div class="blog_5">
+	    			<!-- AddToAny BEGIN -->
+					<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+						<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+						<a class="a2a_button_facebook"></a>
+						<a class="a2a_button_twitter"></a>
+						<a class="a2a_button_email"></a>
+						<a class="a2a_button_whatsapp"></a>
+						<a class="a2a_button_reddit"></a>
+						<a class="a2a_button_telegram"></a>
+						<a class="a2a_button_tumblr"></a>
+						<a class="a2a_button_blogger"></a>
+						<a class="a2a_button_facebook_messenger"></a>
+						<a class="a2a_button_digg"></a>
+						<a class="a2a_button_vk"></a>
+						<a class="a2a_button_wordpress"></a>
+					</div>
+					<script>
+					var a2a_config = a2a_config || {};
+					a2a_config.locale = "pt-BR";
+					</script>
+					<script async src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+			</div>
+		</div>
+
 
 	<div class="col-sm-12 padding_all">
 		<div class="details_1">
@@ -67,12 +80,36 @@
 		</div>
 	</div>
 	<div class="col-sm-12 padding_all">
+		<div class="blog_5">
+	  			<!-- AddToAny BEGIN -->
+					<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+						<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+						<a class="a2a_button_facebook"></a>
+						<a class="a2a_button_twitter"></a>
+						<a class="a2a_button_email"></a>
+						<a class="a2a_button_whatsapp"></a>
+						<a class="a2a_button_reddit"></a>
+						<a class="a2a_button_telegram"></a>
+						<a class="a2a_button_tumblr"></a>
+						<a class="a2a_button_blogger"></a>
+						<a class="a2a_button_facebook_messenger"></a>
+						<a class="a2a_button_digg"></a>
+						<a class="a2a_button_vk"></a>
+						<a class="a2a_button_wordpress"></a>
+					</div>
+					<script>
+					var a2a_config = a2a_config || {};
+					a2a_config.locale = "pt-BR";
+					</script>
+					<script async src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+			</div>
+		</div>
+
+	<div class="col-sm-12 padding_all">
 		<div class="details_4">
 			<h5>O que achou?</h5>
 			<p>Deixe sua opinião nos comentários :-)</p>
-		<!--</div>
-
-			<div class="details_4" id="comments">-->
 				{% get_comment_list for post as comment_list %}
 				{% for comment in comment_list %}
 				<h5>
@@ -120,3 +157,27 @@
 		</div>
 	</div>
 	{% endblock %}
+	{% block js_script %}
+<script type="text/javascript">
+window.fbAsyncInit = function(){
+FB.init({
+    appId: '1353894315002911', status: true, cookie: true, xfbml: true });
+};
+(function(d, debug){var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if(d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id;
+    js.async = true;js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+    ref.parentNode.insertBefore(js, ref);}(document, /*debug*/ false));
+function postToFeed(title, desc, url, image){
+var obj = {method: 'feed',link: url, picture: image,name: title,description: desc};
+function callback(response){}
+FB.ui(obj, callback);
+}
+
+$('.btnShareFacebook').click(function(){
+    elem = $(this);
+    postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
+    return false;
+});
+</script>
+{% endblock %}
