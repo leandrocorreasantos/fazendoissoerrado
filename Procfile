@@ -1,1 +1,1 @@
-web: gunicorn fazendoissoerrado.wsgi.py:application
+web: gunicorn fazendoissoerrado.wsgi
