@@ -8,19 +8,23 @@ from .forms import ContatoForm
 import smtplib
 from django.contrib import messages
 from django.core.mail import BadHeaderError
+from django.views.decorators.cache import cache_page
 from fazendoissoerrado.settings import (
     CONTACT_EMAIL_BOX,
     EMAIL_HOST,
     EMAIL_PORT,
     EMAIL_HOST_USER,
     EMAIL_HOST_PASSWORD,
-    EMAIL_USE_SSL
+    EMAIL_USE_SSL,
+    CACHE_TTL
 )
 
 
 # Create your views here.
+cache_ttl = int(CACHE_TTL)
 
 
+@cache_page(cache_ttl)
 def post_details(request, category, slug, pk):
     queryset = Post.objects.filter(
         published=True
@@ -46,6 +50,7 @@ def post_details(request, category, slug, pk):
     )
 
 
+@cache_page(cache_ttl)
 def post_list(request):
     page = request.GET.get('page', 1)
     post_search = Post.find()
@@ -59,6 +64,7 @@ def post_list(request):
     )
 
 
+@cache_page(cache_ttl)
 def post_by_category(request, category_slug):
     page = request.GET.get('page', 1)
     post_search = Post.objects.filter(
@@ -79,6 +85,7 @@ def post_by_category(request, category_slug):
     )
 
 
+@cache_page(cache_ttl)
 def index(request):
     page = 1
     highlights = Post.find()[:3]
@@ -122,6 +129,7 @@ def search(request):
     return redirect('/')
 
 
+@cache_page(cache_ttl)
 def tag(request, tag_name):
     page = request.GET.get('page', 1)
     post_search = Post.objects.filter(
@@ -146,6 +154,7 @@ def tag(request, tag_name):
     )
 
 
+@cache_page(cache_ttl)
 def contato(request):
     assunto = 'Fazendo Isso Errado - Contato do Site'
     form = ContatoForm()
