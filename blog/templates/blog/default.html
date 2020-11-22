@@ -1,0 +1,173 @@
+{% load static %}
+{% load post_tags %}
+{% load adsense %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+	<title>{% block site_title %}{% endblock %}  | Fazendo Isso Errado</title>
+	<meta name="description" content="{% block meta_description%}Fazendo Isso Errado. Um blog sobre coisas legais que tem na internet{% endblock %}" />
+	<meta name="keywords" content="{% block meta_keywords %}{% endblock %} blog, lifestyle, cotidiano, humor" />
+
+	<meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+	<meta property="og:title" content="{% block og_title %}Início{% endblock %} | Fazendo Isso Errado" />
+	<meta property="og:description" content="{% block og_description %}Fazendo Isso Errado. Um blog sobre coisas legais que tem na internet{% endblock %}" />
+	<meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}" />
+	<meta property="og:image" content="{% block og_image %}{% static 'img/fazendoissoerrado.jpg' %}{% endblock %}" />
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:site_name" content="Fazendo Isso Errado" />
+
+	<link rel="alternate" type="application/atom+xml" title="Fazendo Isso Errado | Feed de Artigos" href="/feed/">
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/style.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/element.css' %}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" />
+	<link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">
+	{% block css_script %}{% endblock %}
+
+	<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</head>
+
+<body>
+	<section id="header">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">F<span class="well_4">a</span>zendo<br /><span class="well_2">isso </span><span class="well_4">er</span>rado</a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-center">
+						<li {% if request.path == '/' %}class="active"{% endif %}><a href="/">INÍCIO</a></li>
+						<li {% if 'artigo' in request.path %}class="active"{% endif %}><a href="/artigos/" >ARTIGOS</a></li>
+						{% list_categories as categories %}
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">CATEGORIAS <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								{% for cat in categories %}
+								<li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+								{% endfor %}
+							</ul>
+						</li>
+						<li {% if 'contato' in request.path %}class="active"{% endif %}><a href="/contato/">CONTATO</a></li>
+						</ul>
+					<ul class="navbar-right">
+						<li class="dropdown"><a class="text_1 pad_1" href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+							<ul class="dropdown-menu drop_inner" style="min-width:100%;">
+								<li>
+									<div class="row_1">
+										<div class="col-sm-12">
+											<form class="navbar-form navbar-left" role="search" action="/busca/">
+												<div class="input-group">
+													<input type="text" class="form-control" name="q" value="{{ q }}" placeholder="Search">
+													<span class="input-group-btn">
+														<button class="btn btn-primary" type="button">
+														Go!</button>
+													</span>
+												</div>
+											</form>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</section>
+	<section id="center" class="clearfix">
+		<div class="container">
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+
+			{% block content %}{% endblock %}
+			{% block sidebar %}
+			<!-- begin sidebar -->
+			<div class="col-sm-4">
+				<div class="center_main clearfix">
+					<div class="center_6">
+						<p>{% show_ads '300x250' %}</p>
+					</div>
+					{% most_viewed %}
+					<div class="col-sm-12 padding_all">
+						<div class="center_9">
+							<p>{% show_ads '300x250' %}</p>
+						</div>
+					</div>
+				</div>
+				<div class="center_main clearfix">
+					<div class="center_6">
+						<p>{% show_ads '300x250' %}</p>
+					</div>
+					{% most_recent %}
+				</div>
+			</div>
+			{% endblock %}
+		</div>
+	</div>
+</div>
+</section>
+<section id="footer">
+	<div class="col-sm-12 padding_all">
+		<div class="footer_main clearfix">
+			<div class="col-sm-4">
+				<div class="footer_1">
+					<h3>Quem Somos</h3>
+										</div>
+				<div class="footer_2">
+					<p>Há algum tempo, um grupo de amigos achou que seria uma boa ideia ter um blog para compartilhar tudo o que eles achavam de interessante na internet (ou fora dela) com seus amigos. Eles se uniram e criaram o <strong>Boteco Geek</strong>. O tempo passou, as coisas mudaram e o blog acabou. Agora, um desses amigos, embriagado pela nostalgia e empolgado por poder compartilhar novamente com as pessoas as coisas que encontra por aí, busca reviver essa época, mas com uma nova proposta. O objetivo é poder conhecer coisas legais, se divertir, se informar e compartilhar isso tudo com outras pessoas. Amigos em potencial que podem (ou não) gostar do que for publicado aqui. Motivo? Apenas acredita-se que essa é a coisa mais legal a se fazer com a internet. O nome do site vem de um lema subjetivo: Se você não está usando a internet para se divertir, se distrair ou se informar, você está fazendo isso errado. :-) </p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="footer_3">
+					<p>{% show_ads '350x200' %}</p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="footer_4">
+					<h3>MAIS RECENTES:</h3>
+				</div>
+				{% most_recent_footer %}
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12 padding_all">
+		<div class="footer_inner clearfix">
+			<div class="col-sm-10">
+				<div class="footer_8"><p>Design by<a href="http://www.TemplateOnWeb"> Template On Web</a> </p></div>
+			</div>
+			<div class="col-sm-2">
+			</div>
+		</div>
+	</div>
+</section>
+<script src="{% static 'js/cbpAnimatedHeader.js' %}"></script>
+<script src="{% static 'js/classie.js' %}"></script>
+<!-- Google adsense code -->
+<script data-ad-client="ca-pub-1552573390603193" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- facebook share button code -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v9.0&appId=1353894315002911&autoLogAppEvents=1" nonce="UNClSYVz"></script>
+{% block js_script %}{% endblock %}
+</body>
+</html>

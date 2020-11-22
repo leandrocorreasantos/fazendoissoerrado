@@ -1,0 +1,28 @@
+{% load imagekit %}
+{% load comments %}
+<div class="center_6">
+	<h3>{{ title }}</h3>
+</div>
+{% for post in posts %}
+<div class="col-sm-12 padding_all">
+	<div class="col-sm-4 padding_all">
+		<div class="center_7">
+			<p>
+				<a href="{{ post.get_absolute_url }}">
+					{% thumbnail '83x63' post.cover %}
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="col-sm-8 padding_all">
+		<div class="center_8">
+			<h5><a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords:8 }}</a></h5>
+			<p>{{ post.published_date|date:"d F Y" }} <br />
+				{{ post.views }} <i class="fa fa-eye"></i>
+      			{% get_comment_count for post as comment_count %}
+				{{ comment_count }} <i class="fa fa-comment"></i>
+			</p>
+		</div>
+	</div>
+</div>
+{% endfor %}

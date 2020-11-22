@@ -1,0 +1,183 @@
+{% extends "blog/default.html" %}
+{% load static %}
+{% load imagekit %}
+{% load comments %}
+{% block site_title %}{{ post.title }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.meta_description }}{% endblock %}
+{% block og_image %}/media/{{ post.cover }}{% endblock %}
+{% block meta_keywords %} {{ keywords|join:", " }}, {% endblock %}
+{% block meta_description %}{{ post.meta_description }}{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-12 padding_all">
+		<div class="col-sm-8">
+			<div class="blog_1">
+				<ul>
+					{% for tag in post.tags.all %}
+					<li><a href="/artigos/tag/{{ tag.name }}">{{ tag.name }}</a></li>
+					{% endfor %}
+				</ul>
+				<h2>{{ post.title }}</h2>
+			</div>
+			<div class="col-sm-12 padding_all">
+				<div class="col-sm-10 padding_all">
+					<div class="blog_2">
+						<h4><a href="#">{{ post.author.first_name|upper }}</a>, {{ post.published_date|date:"j F Y H:i" }} </h4>
+					</div>
+				</div>
+				<div class="col-sm-2 padding_all">
+					<div class="blog_3">
+						<ul>
+							<li>{{ post.views }} <i class="fa fa-eye"></i></li>
+							{% get_comment_count for post as comment_count %}
+							<li>{{ comment_count }} <i class="fa fa-comment"></i></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		<div class="col-sm-12 padding_all">
+			<div class="blog_11">
+				<p><a href="#">
+				{% thumbnail '750x412' post.cover -- width='100%' %}
+				</a></p>
+			</div>
+		</div>
+		<div class="col-sm-12 padding_all">
+				<div class="blog_5">
+	    			<!-- AddToAny BEGIN -->
+					<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+						<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+						<a class="a2a_button_facebook"></a>
+						<a class="a2a_button_twitter"></a>
+						<a class="a2a_button_email"></a>
+						<a class="a2a_button_whatsapp"></a>
+						<a class="a2a_button_reddit"></a>
+						<a class="a2a_button_telegram"></a>
+						<a class="a2a_button_tumblr"></a>
+						<a class="a2a_button_blogger"></a>
+						<a class="a2a_button_facebook_messenger"></a>
+						<a class="a2a_button_digg"></a>
+						<a class="a2a_button_vk"></a>
+						<a class="a2a_button_wordpress"></a>
+					</div>
+					<script>
+					var a2a_config = a2a_config || {};
+					a2a_config.locale = "pt-BR";
+					</script>
+					<script async src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+			</div>
+		</div>
+
+
+	<div class="col-sm-12 padding_all">
+		<div class="details_1">
+			{% autoescape off %}
+			{{ post.content }}
+			{% endautoescape %}
+		</div>
+	</div>
+	<div class="col-sm-12 padding_all">
+		<div class="blog_5">
+	  			<!-- AddToAny BEGIN -->
+					<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+						<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+						<a class="a2a_button_facebook"></a>
+						<a class="a2a_button_twitter"></a>
+						<a class="a2a_button_email"></a>
+						<a class="a2a_button_whatsapp"></a>
+						<a class="a2a_button_reddit"></a>
+						<a class="a2a_button_telegram"></a>
+						<a class="a2a_button_tumblr"></a>
+						<a class="a2a_button_blogger"></a>
+						<a class="a2a_button_facebook_messenger"></a>
+						<a class="a2a_button_digg"></a>
+						<a class="a2a_button_vk"></a>
+						<a class="a2a_button_wordpress"></a>
+					</div>
+					<script>
+					var a2a_config = a2a_config || {};
+					a2a_config.locale = "pt-BR";
+					</script>
+					<script async src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+			</div>
+		</div>
+
+	<div class="col-sm-12 padding_all">
+		<div class="details_4">
+			<h5>O que achou?</h5>
+			<p>Deixe sua opinião nos comentários :-)</p>
+				{% get_comment_list for post as comment_list %}
+				{% for comment in comment_list %}
+				<h5>
+					{% if comment.url %}
+					<a href="{{ comment.url }}" target="_blank">{{ comment.name }}</a>
+					{% else %}
+					{{ comment.name }}
+					{% endif %}
+				</h5>
+				<p>{{ comment.submit_date }}</p>
+				<p>{{ comment.comment }}</p>
+				{% endfor %}
+			</div>
+
+			{% get_comment_form for post as comment_form %}
+			<form action="{% comment_form_target %}" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{ post.get_absolute_url }}#comments" />
+				<div class="details_6">
+					<label for="id_name">Nome:</label>
+					<input type="text" id="id_name" name="name" class="form-control" placeholder="" />
+				</div>
+				<div class="details_6">
+					<label for="id_email">E-mail:</label>
+					<input type="text" id="id_email" name="email" class="form-control" placeholder="" />
+				</div>
+				<div class="details_6">
+					<label for="id_url">Website:</label>
+					<input type="text" id="id_url" name="url" class="form-control" placeholder="" />
+				</div>
+				<div class="details_5">
+					<label for="id_comment">Comentário:</label>
+					<textarea class="form-control" placeholder="" id="id_comment" name="comment"></textarea>
+				</div>
+				<input id="id_honeypot" type="hidden" name="honeypot" />
+				{{ comment_form.content_type }}
+				{{ comment_form.object_pk }}
+				{{ comment_form.timestamp }}
+				{{ comment_form.security_hash }}
+
+				<input type="submit" name="submit" value="Post">
+				<input type="submit" name="preview" value="Preview">
+			</form>
+
+		</div>
+	</div>
+	{% endblock %}
+	{% block js_script %}
+<script type="text/javascript">
+window.fbAsyncInit = function(){
+FB.init({
+    appId: '1353894315002911', status: true, cookie: true, xfbml: true });
+};
+(function(d, debug){var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if(d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id;
+    js.async = true;js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+    ref.parentNode.insertBefore(js, ref);}(document, /*debug*/ false));
+function postToFeed(title, desc, url, image){
+var obj = {method: 'feed',link: url, picture: image,name: title,description: desc};
+function callback(response){}
+FB.ui(obj, callback);
+}
+
+$('.btnShareFacebook').click(function(){
+    elem = $(this);
+    postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
+    return false;
+});
+</script>
+{% endblock %}

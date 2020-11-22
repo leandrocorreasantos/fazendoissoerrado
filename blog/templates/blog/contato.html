@@ -1,0 +1,85 @@
+{% extends "blog/default.html" %}
+{% load static %}
+{% block site_title %}Contato{% endblock %}
+{% block og_type %}website{% endblock %}
+{% block og_title %}Contato{% endblock %}
+{% block meta_keywords %}contato, fale conosco, redes sociais,{% endblock %}
+{% block meta_description %} Fazendo Isso Errado | Contato do site {% endblock %}
+
+{% block content %}
+<section id="contact">
+	<div class="contact">
+  		<div class="container">
+       		<h2 class="text-center">CONTATO</h2>
+   			<div class="row">
+    			<div class="col-sm-12 padding_all">
+	  				<div class="col-sm-6 padding_all">
+	   					<div class="contact_4">
+	    					<h4>ENVIE SUA MENSAGEM</h4>
+							<p>Você será respondido o mais breve possível</p>
+	   					</div>
+						<form method="post" enctype="multipart/form-data" id="cf">
+							{% csrf_token %}
+	  						<div class="col-sm-12 drop_2 clearfix">
+	   							<div class="col-sm-4 drop_2">
+	    							<div class="contact_5">
+										{{ form.nome }}
+									</div>
+	   							</div>
+	   							<div class="col-sm-4 drop_2">
+	    							<div class="contact_5">
+										{{ form.email }}
+									</div>
+	   							</div>
+	   							<div class="col-sm-4 drop_2">
+							    	<div class="contact_5">
+										{{ form.telefone }}
+									</div>
+								</div>
+							</div>
+	  						<div class="col-sm-12 drop_2">
+	   							<div class="contact_6">
+									{{ form.mensagem }}
+								</div>
+								<div class="contact_7">
+	     							<ul>
+										<li><button type="submit">ENVIAR</button></li>
+										<li><button type="reset">LIMPAR</button></li>
+		 							</ul>
+	   							</div>
+	  						</div>
+						</form>
+	 				</div>
+	 				<div class="col-sm-6 padding_all">
+						<div class="contact_4">
+	    					<h4>ACOMPANHE NOSSAS REDES SOCIAIS</h4>
+							<p>Twitter <a href="#">@fazendoissoerrado</a></p>
+							<p>Instagram <a href="#">@fazendoissoerrado</a></p>
+	   					</div>
+	 				</div>
+				</div>
+   			</div>
+  		</div>
+	</div>
+</section>
+{% endblock %}
+{% block sidebar %} {% endblock %}
+{% block css_script %}
+<style>
+button[type="submit"], button[type="reset"]{
+	border:none;
+	background-color: transparent;
+	font-weight: 700;
+	font-size: 18px;
+	letter-spacing: 3px;
+}
+</style>
+{% endblock %}
+{% block js_script %}
+<script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('input[name=telefone]').mask('(00)0000-00009');
+});
+</script>
+{% endblock %}

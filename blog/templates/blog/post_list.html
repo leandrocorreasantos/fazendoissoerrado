@@ -1,0 +1,62 @@
+{% extends "blog/default.html" %}
+{% load static %}
+{% load imagekit %}
+{% load comments %}
+{% block site_title %}Artigos{% endblock %}
+{% block og_title %}Artigos{% endblock %}
+{% block og_description %}Artigos{% endblock %}
+{% block meta_keywords %}artigos,{% endblock %}
+{% block meta_description %}artigos do site{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm-12 padding_all">
+		<div class="col-sm-8">
+			{% for post in posts %}
+			<div class="col-sm-12 padding_all">
+				<div class="center_4 clearfix">
+					<div class="col-sm-4">
+						<div class="center_2">
+							{% if post.cover %}
+							<a href="{{ post.get_absolute_url }}">{% thumbnail '260x170' post.cover -- width='100%' %}</a>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="center_3">
+							<h6><a href="{{ post.get_absolute_url }}">{{ post.author.first_name|upper }}</a>,
+							{{ post.published_date|date:"j F Y H:i" }}</h6>
+							<h3><a href="{{ post.get_absolute_url }}">{{ post.title|title }}</a></h3>
+							<p>{{ post.content|striptags|truncatewords:36 }}</p>
+							<ul>
+								<li class="well_5"><a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a></li>
+								{% for tag in post.tags.all %}
+								<li class="well_5"><a href="/artigos/tag/{{ tag.name }}">{{ tag.name }}</a></li>
+								{% endfor %}
+								<li>{{ post.views }} <i class="fa fa-eye"></i></li>
+								{% get_comment_count for post as comment_count %}
+								<li><a href="#comments">{{ comment_count }} <i class="fa fa-comment"></i></a> </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			<div class="center_5 clearfix">
+				<ul>
+					{% if posts.has_previous %}
+					<li><a href="?page=1">&laquo</a></li>
+					<li><a href="?page={{ posts.previous_page_number }}">&lt;</a></li>
+					{% endif %}
+
+					<li class="well_6">{{ posts.number }}</li>
+
+					{% if posts.has_next %}
+					<li><a href="?page={{ posts.next_page_number }}">&gt;</a></li>
+					<li><a href="?page={{ posts.paginator.num_pages }}">&raquo;</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+		{% endblock %}
+

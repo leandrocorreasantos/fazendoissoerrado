@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
+ENVIRONMENT = env('ENVIRONMENT')
 
 ALLOWED_HOSTS = [
         'localhost',
@@ -47,6 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
+    'django_comments',
+    'imagekit',
+    'taggit',
+    'django_summernote',
+    'blog.apps.BlogConfig',
+    'adsense.apps.AdsenseConfig'
 ]
 
 MIDDLEWARE = [
@@ -58,6 +66,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+""" email configs """
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+CONTACT_EMAIL_BOX = env("CONTACT_EMAIL_BOX")
+
+EMAIL_USE_TLS = bool(env("EMAIL_USE_TLS"))
+EMAIL_USE_SSL = bool(env("EMAIL_USE_SSL"))
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 ROOT_URLCONF = 'fazendoissoerrado.urls'
 
@@ -94,6 +113,18 @@ DATABASES = {
     }
 }
 
+# cache redis
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env('REDIS_URL'),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+CACHE_TTL = int(env('CACHE_TTL'))
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -127,11 +158,22 @@ USE_L10N = True
 
 USE_TZ = True
 
+# summernote config
+SUMMERNOTE_CONFIG = {
+    'disable_attachment': True,
+    'summernote': {
+        'width': '90%',
+        'height': '800',
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if ENVIRONMENT == 'development':
+    STATIC_ROOT = env('STATIC_ROOT')
+    MEDIA_ROOT = env('MEDIA_ROOT')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
