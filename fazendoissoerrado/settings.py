@@ -167,9 +167,13 @@ SUMMERNOTE_CONFIG = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-if ENVIRONMENT == 'development':
+if ENVIRONMENT == 'production':
     STATIC_ROOT = env('STATIC_ROOT')
     MEDIA_ROOT = env('MEDIA_ROOT')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = [
+        '/home/fazendoissoerrado/www/static'
+        ]
