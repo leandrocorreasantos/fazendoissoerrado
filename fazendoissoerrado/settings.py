@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 ENVIRONMENT = env('ENVIRONMENT')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', 'fazendoissoerrado.com.br']
 
 SITE_ID = 1
 # Application definition
