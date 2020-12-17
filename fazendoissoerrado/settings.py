@@ -124,7 +124,7 @@ CACHES = {
     }
 }
 
-CACHE_TTL = int(env('CACHE_TTL'))
+# CACHE_TTL = int(env('CACHE_TTL'))
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
