@@ -48,10 +48,10 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('/', views.index, name='index'),
-    path('artigos/', views.post_list, name='artigos'),
-    path('artigo/<category>/<slug>/<pk>', views.post_details, name='artigo'),
-    path('artigos/tag/<tag_name>', views.tag, name='post_by_tag'),
+    path('', views.index, name='index'),
+    path('/artigos/', views.post_list, name='artigos'),
+    path('/artigo/<category>/<slug>/<pk>', views.post_details, name='artigo'),
+    path('/artigos/tag/<tag_name>', views.tag, name='post_by_tag'),
     path(
         'categoria/<category_slug>',
         views.post_by_category,
