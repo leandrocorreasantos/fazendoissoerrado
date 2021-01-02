@@ -21,4 +21,5 @@ bash:
 run:
 	${DOCKER_CMD} gunicorn fazendoissoerrado.wsgi:application --bind 0.0.0.0:8000 --workers 3
 
-start: run
+start:
+	${DOCKER_CMD} python manage.py runserver 0.0.0.0:8000

@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
-    'django_comments',
     'imagekit',
     'taggit',
     'django_summernote',
@@ -177,7 +176,9 @@ if ENVIRONMENT == 'production':
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
+'''
 STATICFILES_DIRS = [
+        STATIC_ROOT,
         '/home/fazendoissoerrado/www/static'
         ]
+'''

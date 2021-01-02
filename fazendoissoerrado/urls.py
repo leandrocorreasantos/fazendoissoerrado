@@ -18,21 +18,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
-from django_comments.feeds import LatestCommentFeed
 
 
 urlpatterns = [
+    path('', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('sumernote/', include('django_summernote.urls')),
-    path('', include('blog.urls')),
-    path('comments/', include('django_comments.urls')),
-    path('comments/feed/', LatestCommentFeed()),
 
-]
-# if settings.DEBUG:
-urlpatterns += static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
-)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
